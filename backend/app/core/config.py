@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     VECTOR_STORE_PATH: str = "./data/vector_store"
 
     # 文件上传配置
+    TEMP_DIR: str = "./temp"
     UPLOAD_DIR: str = "./uploads"
     MAX_FILE_SIZE: int = 100 * 1024 * 1024 # 100MB
 

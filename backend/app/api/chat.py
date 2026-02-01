@@ -2,22 +2,49 @@
 AI-FileManager 对话API接口
 """
 import json
-from fastapi import APIRouter, Depends,WebSocket, WebSocketDisconnect, status, HTTPException
+from fastapi import APIRouter, Depends,WebSocket, UploadFile, WebSocketDisconnect, status, HTTPException
 from sse_starlette.sse import EventSourceResponse
 
-from app.core.config import settings
+from app.services.llm_service import get_llm_service
 from app.utils.logger import get_logger
+from app.utils.files import save_file_to_temp
+from app.utils.utils import validate_file_type
 
 logger = get_logger(__name__)
 
 router = APIRouter()
 
+class Request(BaseModel):
+    message: str
+    files: Optional[List[FileItem]] = []
+    session_id: Optional[str] = None
+
 @router.post("/completion", response_model=dict)
-async def chat_completion(request: Request, current_user: User = Depends(get_current_user)):
+async def chat_completion(request: Request, file: UploadFile = Depends(validate_file_type), current_user: User = Depends(get_current_user)):
     """
     对话完成接口,调用大模型进行对话
     """
-    pass
+    llm_service = get_llm_service()
+
+    file_paths = []
+    for file in request.files:
+        # 将文件存为临时文件
+        file_path = await save_file_to_temp(file)
+        file_paths.append(file_path)
+    
+    # 准备消息
+    messages = [{"role": "user", "content": request.message}]
+    
+    # 调用大模型
+    response = await llm_service.chat_completion(
+        messages=messages,
+        file_paths=file_paths,
+        user_id=str(current_user.id) if current_user else None,
+        stream=False
+    )
+    
+    return response
+    
 
 @router.post("/stream")
 async def chat_stream(

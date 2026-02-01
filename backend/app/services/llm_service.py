@@ -2,6 +2,7 @@
 大模型服务封装 - 基于langchain
 """
 from typing import List, Dict, Any
+from langchain_core.prompts import ChatPromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain.schema import Document
 
@@ -24,11 +25,25 @@ class LLMService:
         self,
         messages: List[Dict[str, str]],
         user_id: str = None,
-        stream: bool=False
+        stream: bool=False,
+        file_paths: Optional[List[str]] = None
     ):
         """
         调用大模型进行对话
         """
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                ("system", """
+                ### 技能. 文件操作相关的意图识别
+你的任务是根据技能1理解的最新提问，在以下意图类型中进行分类，并抽取相应的参数：
+
+1.文件操作
+    - 描述：用户问题是要管理文件，
+                """),
+                messages
+            ]
+        )
+
         return NotImplementedError("子类必须实现此方法")
 
     async def process_with_context(
