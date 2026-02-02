@@ -16,7 +16,7 @@ class LLMService:
     LLM服务类
     """
     def __init__(self, model_name: str = None, temperature: float = 0.7):
-        self.model_name = model_name or settings.DEFAULT_LLM_MODEL
+        self.model_name = model_name or settings.LLM_MODEL
         self.temperature = temperature
         self.chat_histories = {} # 存储用户对话历史
         self.vector_store = {} # 存储向量数据库

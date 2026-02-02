@@ -20,15 +20,14 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./app.db"
 
     # LLM配置
-    DEFAULT_LLM_PROVIDER:str = "openai"
-    DEFAULT_LLM_MODEL: str = "gpt-3.5-turbo"
+    LLM_MODEL: str = "gpt-3.5-turbo"
+    LLM_BASE_URL: Optional[str] = "https://api.openai.com/v1"
+    LLM_API_KEY: Optional[str] = "sk_Yzxg-uYL0f7djZpvU8VIis7Tn_rCE1bq2XliOftiSe8"
 
-    # OpenAI 配置
-    OPENAI_API_KEY: Optional[str] = None
-    OPENAI_BASE_URL: Optional[str] = "https://api.openai.com/v1"
-
-    # 阿里云通义千问配置
-    DASHSCOPE_API_KEY: Optional[str] = None
+    # OCR配置
+    OCR_MODEL: str = "deepseek/deepseek-ocr-2"
+    OCR_API_URL: str = "https://api.ppio.com/openai/v1"
+    OCR_API_KEY: Optional[str] = "sk_Yzxg-uYL0f7djZpvU8VIis7Tn_rCE1bq2XliOftiSe8"
 
     # 向量存储配置
     VECTOR_STORE_PATH: str = "./data/vector_store"
