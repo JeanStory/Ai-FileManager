@@ -24,9 +24,7 @@ class LLMService:
     async def chat_completion(
         self,
         messages: List[Dict[str, str]],
-        user_id: str = None,
         stream: bool=False,
-        file_paths: Optional[List[str]] = None
     ):
         """
         调用大模型进行对话
