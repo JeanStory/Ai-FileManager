@@ -19,8 +19,6 @@ class PdfSplitSchema(BaseModel):
     """
     file_path: str = Field(description="单个PDF文件的路径")
     
-    
-
 #@tool(description="PDF文件拆分工具,将单个PDF文件拆分成多个PDF文件", args_schema=PdfSplitSchema)
 def pdf_split(file_path: str) -> dict:
     """
@@ -91,5 +89,3 @@ def pdf_save(file_paths: List[str]) -> bool:
         bool: 是否保存成功
     """
     return NotImplementedError("子类必须实现此方法")
-
-pdf_split(sys.argv[1])
