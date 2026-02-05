@@ -54,10 +54,8 @@ async def chat_stream(
             
             # 模拟流式响应（实际需要模型支持）
             # 这里简化处理，实际应该调用支持流式的模型
-            response = await llm_service.chat_completion(
-                messages=messages,
-                user_id=str(current_user.id) if current_user else None,
-                stream=False  # 注意：需要模型支持stream=True
+            response = await llm_service.invoke(
+                messages=messages
             )
             
             # 模拟流式输出

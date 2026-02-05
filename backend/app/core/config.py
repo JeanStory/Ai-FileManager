@@ -18,9 +18,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./app.db"
 
     # LLM配置
-    LLM_MODEL: str = "gpt-3.5-turbo"
-    LLM_BASE_URL: Optional[str] = "https://api.openai.com/v1"
-    LLM_API_KEY: Optional[str] = "sk_Yzxg-uYL0f7djZpvU8VIis7Tn_rCE1bq2XliOftiSe8"
+    LLM_MODEL: str = "deepseek/deepseek-v3.2"
+    LLM_BASE_URL: Optional[str] = "https://api.ppinfra.com/anthropic"
+    LLM_API_KEY: Optional[str] = "sk_00VtwP-DW6rME60bF3YzqZTCIoNqK2Dh3g9Oo8W4G98"
 
     # OCR配置
     OCR_MODEL: str = "qwen-vl-ocr-latest"

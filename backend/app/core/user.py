@@ -1,9 +1,9 @@
 from app.core.session import Session
 from typing import Dict
 
-from logging import get_logger
+from logging import getLogger
 
-logger = get_logger(__name__)
+logger = getLogger(__name__)
 
 class User():
     id: str
